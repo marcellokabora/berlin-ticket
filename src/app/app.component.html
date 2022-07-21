@@ -1,0 +1,151 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened="true">
+
+    <div class="filter-section" [formGroup]="pricing">
+      <div class="label">Price</div>
+      <mat-checkbox formControlName="price1">
+        <span class="flexcenter">
+          0-10 &nbsp;
+          <mat-icon>paid</mat-icon>
+        </span>
+      </mat-checkbox>
+      <mat-checkbox formControlName="price2">
+        <span class="flexcenter">
+          10-20 &nbsp;
+          <mat-icon>paid</mat-icon>
+        </span>
+      </mat-checkbox>
+      <mat-checkbox formControlName="price3">
+        <span class="flexcenter">
+          20-50 &nbsp;
+          <mat-icon>paid</mat-icon>
+        </span>
+      </mat-checkbox>
+      <mat-checkbox formControlName="price4">
+        <span class="flexcenter">
+          50-100 &nbsp;
+          <mat-icon>paid</mat-icon>
+        </span>
+      </mat-checkbox>
+      <mat-checkbox formControlName="price5">
+        <span class="flexcenter">
+          +100 &nbsp;
+          <mat-icon>paid</mat-icon>
+        </span>
+      </mat-checkbox>
+    </div>
+
+    <div class="filter-section" [formGroup]="ratings">
+      <div class="label">Rating</div>
+      <mat-checkbox formControlName="star1">
+        <mat-icon>star</mat-icon>
+      </mat-checkbox>
+      <mat-checkbox formControlName="star2">
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+      </mat-checkbox>
+      <mat-checkbox formControlName="star3">
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+      </mat-checkbox>
+      <mat-checkbox formControlName="star4">
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+      </mat-checkbox>
+      <mat-checkbox formControlName="star5">
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+        <mat-icon>star</mat-icon>
+      </mat-checkbox>
+    </div>
+
+    <div class="filter-section">
+      <mat-slide-toggle class="example-margin" [(ngModel)]="special">Special</mat-slide-toggle>
+    </div>
+
+    <div class="filter-section">
+      <mat-slide-toggle class="example-margin" [(ngModel)]="free">Free</mat-slide-toggle>
+    </div>
+
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+
+    <mat-toolbar color="primary">
+      <button mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+      <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Event" autocomplete="off">
+
+      <form class="example-form">
+        <input class="search" type="search" placeholder="Location" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </form>
+
+
+
+      <!-- <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Organization" autocomplete="off">
+      <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Location" autocomplete="off"> -->
+      <span class="example-spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>person</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="core-main">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let item of events | searching:search | special:special | rating:minrate:maxrate | pricing:minprice:maxprice:free | location:location">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon [style.color]=" item.special ? '#ff4081' : '#162a99' ">sell</mat-icon>
+              <div class=" title" [innerHTML]="item.bezeichnung">
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div mat-line class="infos">
+            <div class="dflex" *ngIf="item.veranstalter">
+              <mat-icon>store</mat-icon>
+              <span class="value">{{item.veranstalter}}</span>
+            </div>
+            <div class="dflex" *ngIf="item.mail">
+              <mat-icon>mail</mat-icon>
+              <a [href]="'mailto:'+item.mail" target="_blank" class="value">{{item.mail}}</a>
+            </div>
+            <div class="dflex" *ngIf="item.bezirk">
+              <mat-icon>pin_drop</mat-icon>
+              <span>{{item.bezirk}} - {{item.strasse}}</span>
+            </div>
+            <div class="dflex" *ngIf="item.von && item.bis">
+              <mat-icon>event</mat-icon>
+              <span class="value">{{item.von|date}} - {{item.bis|date}}</span>
+            </div>
+            <div class="dflex" *ngIf="item.zeit">
+              <mat-icon>schedule</mat-icon>
+              <span class="value">{{item.zeit}}</span>
+            </div>
+            <div class="dflex">
+              <mat-icon>euro</mat-icon>
+              <span class="value">{{item.price}}</span>
+            </div>
+            <div class="dflex">
+              <mat-icon>star</mat-icon>
+              <span class="value">{{item.stars}}</span>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+
+  </div>
+
+</mat-drawer-container>
