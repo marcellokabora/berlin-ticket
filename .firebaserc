@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mk-projecto": {
+      "hosting": {
+        "avrios-berlin-ticket": [
+          "berlin-ticket"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mk-projecto"
+  }
+}

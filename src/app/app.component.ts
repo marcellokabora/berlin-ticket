@@ -53,13 +53,11 @@ export class AppComponent {
   })
   minprice = 0
   maxprice = 1000
+
   locations: string[] = []
   location = ''
-
   myControl = new FormControl('');
-  // options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> = of()
-
 
   constructor(
     private http: HttpClient,
@@ -130,7 +128,6 @@ export class AppComponent {
     this.myControl.valueChanges.subscribe(value => {
       this.location = value ? value : ''
     })
-
 
   }
 

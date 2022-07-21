@@ -39,6 +39,17 @@
     font-weight: normal;
     margin-right: 10px;
   }
+  .line{
+    border-top: 1px solid silver;
+    margin: 15px 0;
+  }
+  .label{
+        font-weight: bold;
+    margin-right: 10px;
+  }
+  .price{
+    font-weight: bold;
+  }
 }
 .mat-accordion{
   .title{

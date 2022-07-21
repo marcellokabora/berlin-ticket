@@ -124,6 +124,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "avrios-berlin-ticket:build:production",
+            "firebaseProject": "mk-projecto",
+            "firebaseHostingSite": "berlin-ticket"
+          }
         }
       }
     }

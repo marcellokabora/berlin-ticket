@@ -36,7 +36,7 @@
     </div>
 
     <div class="filter-section" [formGroup]="ratings">
-      <div class="label">Rating</div>
+      <div class="label">Stars</div>
       <mat-checkbox formControlName="star1">
         <mat-icon>star</mat-icon>
       </mat-checkbox>
@@ -83,7 +83,7 @@
       <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Event" autocomplete="off">
 
       <form class="example-form">
-        <input class="search" type="search" placeholder="Location" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <input class="search" type="search" placeholder="Location" matInput [formControl]="myControl" [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
@@ -91,10 +91,6 @@
         </mat-autocomplete>
       </form>
 
-
-
-      <!-- <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Organization" autocomplete="off">
-      <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Location" autocomplete="off"> -->
       <span class="example-spacer"></span>
       <button mat-icon-button>
         <mat-icon>person</mat-icon>
@@ -116,29 +112,35 @@
               <mat-icon>store</mat-icon>
               <span class="value">{{item.veranstalter}}</span>
             </div>
-            <div class="dflex" *ngIf="item.mail">
+            <!-- <div class="dflex" *ngIf="item.mail">
               <mat-icon>mail</mat-icon>
               <a [href]="'mailto:'+item.mail" target="_blank" class="value">{{item.mail}}</a>
-            </div>
+            </div> -->
             <div class="dflex" *ngIf="item.bezirk">
               <mat-icon>pin_drop</mat-icon>
               <span>{{item.bezirk}} - {{item.strasse}}</span>
             </div>
-            <div class="dflex" *ngIf="item.von && item.bis">
-              <mat-icon>event</mat-icon>
-              <span class="value">{{item.von|date}} - {{item.bis|date}}</span>
-            </div>
-            <div class="dflex" *ngIf="item.zeit">
-              <mat-icon>schedule</mat-icon>
-              <span class="value">{{item.zeit}}</span>
-            </div>
             <div class="dflex">
-              <mat-icon>euro</mat-icon>
-              <span class="value">{{item.price}}</span>
+              <span class="dflex" *ngIf="item.von && item.bis">
+                <mat-icon>event</mat-icon>
+                <span class="value">{{item.von|date}} - {{item.bis|date}}</span>
+              </span>
+              <span class="dflex" *ngIf="item.zeit">
+                <mat-icon>schedule</mat-icon>
+                <span class="value">{{item.zeit}}</span>
+              </span>
             </div>
+            <div class="line"></div>
             <div class="dflex">
-              <mat-icon>star</mat-icon>
-              <span class="value">{{item.stars}}</span>
+              <span class="label">Price: </span>
+              <span class="value price">{{item.price}}</span>
+              <mat-icon>euro</mat-icon>&nbsp;&nbsp;
+              <span class="label">Stars: </span>
+              <mat-icon *ngIf="item.stars>=1">star</mat-icon>
+              <mat-icon *ngIf="item.stars>=2">star</mat-icon>
+              <mat-icon *ngIf="item.stars>=3">star</mat-icon>
+              <mat-icon *ngIf="item.stars>=4">star</mat-icon>
+              <mat-icon *ngIf="item.stars>=5">star</mat-icon>
             </div>
           </div>
         </mat-expansion-panel>
