@@ -2,23 +2,6 @@ html, body { height: 100%; }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.filter-section{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 40px;
-  .label{
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .mat-checkbox{
-    margin: 10px 0;
-  }
-  .mat-checkbox-frame { 
-    border-color: white  !important;
-  }
-}
-
 .flexcenter{
   display: flex;
   align-items: center;

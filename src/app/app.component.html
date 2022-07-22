@@ -77,19 +77,50 @@
   <div class="example-sidenav-content">
 
     <mat-toolbar color="primary">
-      <button mat-icon-button>
+      <!-- <button mat-icon-button>
         <mat-icon>search</mat-icon>
-      </button>
-      <input class="search" matInput type="search" [(ngModel)]="search" placeholder="Event" autocomplete="off">
+      </button> -->
+
+      <mat-form-field appearance="outline">
+        <mat-label>Event</mat-label>
+        <input matInput type="search" [(ngModel)]="search" autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
 
       <form class="example-form">
-        <input class="search" type="search" placeholder="Location" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput type="search" matInput [formControl]="myControl" [matAutocomplete]="auto" autocomplete="off">
+          <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
           </mat-option>
         </mat-autocomplete>
       </form>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Start</mat-label>
+        <input matInput [matDatepicker]="picker2" autocomplete="off" (dateChange)="date1=$event.value">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Finish</mat-label>
+        <input matInput [matDatepicker]="picker" autocomplete="off" (dateChange)="date2=$event.value">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Sortby</mat-label>
+        <mat-select [formControl]="toppings">
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
 
       <span class="example-spacer"></span>
       <button mat-icon-button>
@@ -99,10 +130,10 @@
 
     <div class="core-main">
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let item of events | searching:search | special:special | rating:minrate:maxrate | pricing:minprice:maxprice:free | location:location">
+        <mat-expansion-panel *ngFor="let item of events | searching:search | special:special | rating:minrate:maxrate | pricing:minprice:maxprice:free | location:location | dates:date1:date2">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon [style.color]=" item.special ? '#ff4081' : '#162a99' ">sell</mat-icon>
+              <mat-icon [style.color]=" item.special ? '#ff4081' : '#162a99' ">local_activity</mat-icon>
               <div class=" title" [innerHTML]="item.bezeichnung">
               </div>
             </mat-panel-title>
@@ -112,10 +143,6 @@
               <mat-icon>store</mat-icon>
               <span class="value">{{item.veranstalter}}</span>
             </div>
-            <!-- <div class="dflex" *ngIf="item.mail">
-              <mat-icon>mail</mat-icon>
-              <a [href]="'mailto:'+item.mail" target="_blank" class="value">{{item.mail}}</a>
-            </div> -->
             <div class="dflex" *ngIf="item.bezirk">
               <mat-icon>pin_drop</mat-icon>
               <span>{{item.bezirk}} - {{item.strasse}}</span>

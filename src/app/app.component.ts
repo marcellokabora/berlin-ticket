@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -24,7 +24,8 @@ interface Event {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
 
@@ -59,6 +60,12 @@ export class AppComponent {
   myControl = new FormControl('');
   filteredOptions: Observable<string[]> = of()
 
+  toppings = new FormControl('');
+  toppingList: string[] = ['Price', 'Stars', 'DateStart', 'DateEnd'];
+
+  date1 = ''
+  date2 = ''
+
   constructor(
     private http: HttpClient,
     private _formBuilder: FormBuilder
@@ -74,7 +81,7 @@ export class AppComponent {
       })
 
       const unique = (value: any, index: number, self: any) => self.indexOf(value) === index
-      this.locations = this.events.map(event => event.bezirk).filter(unique)
+      this.locations = this.events.map(event => event.bezirk).filter(unique).sort()
 
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
@@ -179,4 +186,27 @@ export class pipeLocation implements PipeTransform {
     return items.filter((item: Event) => location ? item.bezirk === location : item)
   }
 }
-
+@Pipe({ name: 'dates' })
+export class pipeDates implements PipeTransform {
+  transform(items: Event[], date1: string, date2: string): Event[] {
+    return items.filter((item: Event) =>
+      !date1 && !date2
+        ?
+        item
+        :
+        date1 && date2
+          ?
+          new Date(item.von) >= new Date(date1) && new Date(item.bis) <= new Date(date2)
+          :
+          date1
+            ?
+            new Date(item.von) >= new Date(date1)
+            :
+            date2
+              ?
+              new Date(item.bis) <= new Date(date2)
+              :
+              null
+    )
+  }
+}

@@ -4,7 +4,7 @@
 }
 .example-sidenav {
   padding: 40px;
-  background-color: #162a99;
+  background-color: #2a3ca3;
   color: white;
 }
 .example-sidenav-content {
@@ -24,9 +24,6 @@
   flex: 1 1 auto;
 }
 .infos{
-  // display: flex;
-  // align-items: center;
-  // flex-wrap: wrap;
   .dflex{
     display: flex;
     align-items: center;
@@ -40,7 +37,7 @@
     margin-right: 10px;
   }
   .line{
-    border-top: 1px solid silver;
+    border-top: 1px solid #dbdbdb;
     margin: 15px 0;
   }
   .label{
@@ -68,3 +65,34 @@
   border: none;
   width: 300px;
 }
+
+.mat-toolbar{
+  height: auto;
+  font-size: 16px;
+  padding: 10px 16px !important;
+  .mat-form-field{
+    margin-right: 20px;
+    margin-bottom: -15px;
+    .mat-datepicker-toggle-default-icon{
+      color: white;
+    }
+  }
+}
+
+.filter-section{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  .label{
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .mat-checkbox{
+    margin: 10px 0;
+  }
+  .mat-checkbox-frame { 
+    border-color: white  !important;
+  }
+}
+
