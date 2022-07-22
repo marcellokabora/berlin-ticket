@@ -19,6 +19,7 @@ interface Event {
   special: boolean
   bezeichnung: string
   strasse: string
+  outdated: boolean
 }
 
 @Component({
@@ -65,6 +66,7 @@ export class AppComponent {
 
   date1 = ''
   date2 = ''
+  sortby = ''
 
   constructor(
     private http: HttpClient,
@@ -77,6 +79,7 @@ export class AppComponent {
         if (Math.random() < 0.1) event.price = 0
         event.stars = Math.floor(Math.random() * 6)
         event.special = Math.random() < 0.3
+        event.outdated = new Date() >= new Date(event.bis)
         return event
       })
 
@@ -135,6 +138,9 @@ export class AppComponent {
     this.myControl.valueChanges.subscribe(value => {
       this.location = value ? value : ''
     })
+    this.toppings.valueChanges.subscribe(value => {
+      this.sortby = value ? value : 'DateEnd'
+    })
 
   }
 
@@ -166,18 +172,7 @@ export class pipeSearching implements PipeTransform {
 @Pipe({ name: 'special' })
 export class pipeSpecial implements PipeTransform {
   transform(items: Event[], special: boolean): Event[] {
-    return items.filter((item: Event) => special ? item.special === true : true)
-  }
-}
-@Pipe({ name: 'sortby' })
-export class pipeSortby implements PipeTransform {
-  transform(items: Event[]): Event[] {
-    return items.sort((a: any, b: any) => {
-      if (a.von && a.von) {
-        // return new Date(a.von).getTime() - new Date(b.von).getTime()
-        return a
-      }
-    });
+    return items.filter((item: Event) => special ? true : item.outdated === false)
   }
 }
 @Pipe({ name: 'location' })
@@ -208,5 +203,26 @@ export class pipeDates implements PipeTransform {
               :
               null
     )
+  }
+}
+@Pipe({ name: 'sortby' })
+export class pipeSortby implements PipeTransform {
+  transform(items: Event[], sortby: string): Event[] {
+    return items.sort((a: any, b: any) => {
+      if (sortby === 'Price') {
+        return a.price - b.price
+      }
+      if (sortby === 'Stars') {
+        return a.stars - b.stars
+      }
+      if (sortby === 'DateStart' && a.von && a.von) {
+        return new Date(a.von).getTime() - new Date(b.von).getTime()
+      }
+      if (sortby === 'DateEnd' && a.von && a.von) {
+        return new Date(a.bis).getTime() - new Date(b.bis).getTime()
+      }
+      return a
+    })
+    // .reverse()
   }
 }

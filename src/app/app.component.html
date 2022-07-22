@@ -35,6 +35,10 @@
       </mat-checkbox>
     </div>
 
+    <div class="filter-section">
+      <mat-slide-toggle class="example-margin" [(ngModel)]="free">Free</mat-slide-toggle>
+    </div>
+
     <div class="filter-section" [formGroup]="ratings">
       <div class="label">Stars</div>
       <mat-checkbox formControlName="star1">
@@ -65,11 +69,7 @@
     </div>
 
     <div class="filter-section">
-      <mat-slide-toggle class="example-margin" [(ngModel)]="special">Special</mat-slide-toggle>
-    </div>
-
-    <div class="filter-section">
-      <mat-slide-toggle class="example-margin" [(ngModel)]="free">Free</mat-slide-toggle>
+      <mat-slide-toggle class="example-margin" [(ngModel)]="special">Outdated</mat-slide-toggle>
     </div>
 
   </mat-drawer>
@@ -77,9 +77,6 @@
   <div class="example-sidenav-content">
 
     <mat-toolbar color="primary">
-      <!-- <button mat-icon-button>
-        <mat-icon>search</mat-icon>
-      </button> -->
 
       <mat-form-field appearance="outline">
         <mat-label>Event</mat-label>
@@ -130,10 +127,10 @@
 
     <div class="core-main">
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let item of events | searching:search | special:special | rating:minrate:maxrate | pricing:minprice:maxprice:free | location:location | dates:date1:date2">
+        <mat-expansion-panel *ngFor="let item of events | searching:search | special:special | rating:minrate:maxrate | pricing:minprice:maxprice:free | location:location | dates:date1:date2 | sortby:sortby">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon [style.color]=" item.special ? '#ff4081' : '#162a99' ">local_activity</mat-icon>
+              <mat-icon [style.color]=" item.outdated ? 'grey' : '#162a99' ">local_activity</mat-icon>
               <div class=" title" [innerHTML]="item.bezeichnung">
               </div>
             </mat-panel-title>
