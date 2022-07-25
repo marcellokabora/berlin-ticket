@@ -33,7 +33,7 @@ export class AppComponent {
   events: Event[] = []
 
   search: string = ''
-  special: boolean = false
+  outdated: boolean = false
   free: boolean = false
 
   ratings = this._formBuilder.group({
@@ -58,11 +58,11 @@ export class AppComponent {
 
   locations: string[] = []
   location = ''
-  myControl = new FormControl('');
-  filteredOptions: Observable<string[]> = of()
+  locationControl = new FormControl('');
+  locationOptions: Observable<string[]> = of()
 
-  toppings = new FormControl('');
-  toppingList: string[] = ['Price', 'Stars', 'DateStart', 'DateEnd'];
+  sortbyControl = new FormControl('');
+  sortbyOptions: string[] = ['Price', 'Stars', 'DateStart', 'DateEnd'];
 
   date1 = ''
   date2 = ''
@@ -86,7 +86,7 @@ export class AppComponent {
       const unique = (value: any, index: number, self: any) => self.indexOf(value) === index
       this.locations = this.events.map(event => event.bezirk).filter(unique).sort()
 
-      this.filteredOptions = this.myControl.valueChanges.pipe(
+      this.locationOptions = this.locationControl.valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value || '')),
       )
@@ -135,10 +135,10 @@ export class AppComponent {
       this.maxprice = pricing[pricing.length - 1] ? pricing[pricing.length - 1] : 1000
     })
 
-    this.myControl.valueChanges.subscribe(value => {
+    this.locationControl.valueChanges.subscribe(value => {
       this.location = value ? value : ''
     })
-    this.toppings.valueChanges.subscribe(value => {
+    this.sortbyControl.valueChanges.subscribe(value => {
       this.sortby = value ? value : 'DateEnd'
     })
 

@@ -1,98 +1,100 @@
-.example-container {
+.drawer-container {
   width: 100vw;
   height: 100vh;
-}
-.example-sidenav {
-  padding: 40px;
-  background-color: #2a3ca3;
-  color: white;
-}
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
-}
-.core-main{
-  flex: 1;
-  width: 100%;
-  overflow: auto;
-}
-.example-spacer {
-  flex: 1 1 auto;
-}
-.infos{
-  .dflex{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .mat-icon{
-    margin-right: 5px;
-  }
-  .value{
-    font-weight: normal;
-    margin-right: 10px;
-  }
-  .line{
-    border-top: 1px solid #dbdbdb;
-    margin: 15px 0;
-  }
-  .label{
+  .sidenav {
+    padding: 40px;
+    background-color: #2a3ca3;
+    color: white;
+    .filter-section {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 40px;
+      .label{
+        margin-bottom: 10px;
+        font-size: 18px;
         font-weight: bold;
-    margin-right: 10px;
-  }
-  .price{
-    font-weight: bold;
-  }
-}
-.mat-accordion{
-  .title{
-    margin-left: 10px;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-}
-
-.search{
-  background-color: white !important;
-  color: black;
-  margin-left:10px;
-  border-radius: 5px;
-  padding: 10px;
-  border: none;
-  width: 300px;
-}
-
-.mat-toolbar{
-  height: auto;
-  font-size: 16px;
-  padding: 10px 16px !important;
-  .mat-form-field{
-    margin-right: 20px;
-    margin-bottom: -15px;
-    .mat-datepicker-toggle-default-icon{
-      color: white;
+      }
+      .mat-checkbox {
+        margin: 10px 0;
+      }
+      .mat-checkbox-frame { 
+        border-color: white  !important;
+      }
     }
   }
-}
-
-.filter-section{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 40px;
-  .label{
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
+  .sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    .mat-toolbar {
+      height: auto;
+      font-size: 16px;
+      padding: 10px 16px !important;
+      .search{
+        background-color: white !important;
+        color: black;
+        margin-left:10px;
+        border-radius: 5px;
+        padding: 10px;
+        border: none;
+        width: 300px;
+      }
+      .mat-form-field {
+        margin-right: 20px;
+        margin-bottom: -15px;
+        .mat-datepicker-toggle-default-icon {
+          color: white;
+        }
+      }
+    }
+    .example-spacer {
+      flex: 1 1 auto;
+    }
   }
-  .mat-checkbox{
-    margin: 10px 0;
+  .accordion-container {
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    .mat-accordion {
+      .title {
+        margin-left: 10px;
+        font-weight: bold;
+        text-transform: capitalize;
+        flex: 1;
+      }
+      .infos {
+        .dflex {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .mat-icon {
+          margin-right: 5px;
+        }
+        .value {
+          font-weight: normal;
+          margin-right: 10px;
+        }
+        .line {
+          border-top: 1px solid #dbdbdb;
+          margin: 15px 0;
+        }
+        .label {
+              font-weight: bold;
+          margin-right: 10px;
+        }
+        .price {
+          font-weight: bold;
+        }
+      }
+    }
   }
-  .mat-checkbox-frame { 
-    border-color: white  !important;
+  .flexcenter{
+    display: flex;
+    align-items: center;
   }
 }
 
