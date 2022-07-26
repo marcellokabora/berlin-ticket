@@ -30,6 +30,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
+import { MenubarComponent } from './components/menubar/menubar.component';
+import { ListeventComponent } from './components/listevent/listevent.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { MatSelectModule } from '@angular/material/select';
     pipeSortby,
     pipeLocation,
     pipeDates,
+    SidemenuComponent,
+    MenubarComponent,
+    ListeventComponent,
   ],
   imports: [
     BrowserModule,
