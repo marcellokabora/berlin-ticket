@@ -57,7 +57,7 @@ export class AppComponent {
       this.events = data.index.map((event: Event) => {
         event.price = Math.floor(Math.random() * 150);
         if (Math.random() < 0.1) event.price = 0
-        event.stars = Math.floor(Math.random() * 6)
+        event.stars = Math.floor(Math.random() * 5 + 1)
         event.special = Math.random() < 0.3
         event.outdated = new Date() >= new Date(event.bis)
         return event
