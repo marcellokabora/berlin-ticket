@@ -33,7 +33,7 @@
         </mat-checkbox>
     </div>
     <div class="filter-section">
-        <mat-slide-toggle class="example-margin" [(ngModel)]="free" (change)="freeChange.emit($event.checked)">Free</mat-slide-toggle>
+        <mat-slide-toggle class="example-margin" [(ngModel)]="free">Free</mat-slide-toggle>
     </div>
     <div class="filter-section" [formGroup]="ratings">
         <div class="label">Stars</div>
@@ -64,6 +64,6 @@
         </mat-checkbox>
     </div>
     <div class="filter-section">
-        <mat-slide-toggle class="example-margin" [(ngModel)]="outdated" (change)="outdatedChange.emit($event.checked)">Outdated</mat-slide-toggle>
+        <mat-slide-toggle class="example-margin" [(ngModel)]="outdated">Outdated</mat-slide-toggle>
     </div>
 </div>
