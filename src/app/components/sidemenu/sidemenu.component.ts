@@ -11,7 +11,7 @@ export class SidemenuComponent {
   outdated: boolean = false
 
   @Input() minPrice = 0
-  @Input() maxPrice = 1000
+  @Input() maxPrice = 100
 
   constructor(
     private router: Router,

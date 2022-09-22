@@ -33,11 +33,10 @@ export class AppComponent {
 
   outdated: boolean = false
   free: boolean = false
-  minrate: number = 1
-  maxrate: number = 5
   minprice: number = 0
   maxprice: number = 1000
-
+  minrate: number = 1
+  maxrate: number = 5
   search: string = ''
   locations: string[] = []
   location = ''
@@ -48,7 +47,6 @@ export class AppComponent {
   date1 = ''
   date2 = ''
   sortby = ''
-
   data: any[] = []
 
   constructor(
@@ -57,14 +55,11 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
   ) {
 
-
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-
-      this.minprice = queryParams.minprice
-      this.maxprice = queryParams.maxprice
-      this.minrate = queryParams.minrate
-      this.maxrate = queryParams.maxrate
-
+      this.minprice = queryParams.minprice ? queryParams.minprice : 0
+      this.maxprice = queryParams.maxprice ? queryParams.maxprice : 1000
+      this.minrate = queryParams.minrate ? queryParams.minrate : 1
+      this.maxrate = queryParams.maxrate ? queryParams.maxrate : 5
     })
 
     this.http.get('/assets/data.json').subscribe((data: any) => {
