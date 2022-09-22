@@ -1,6 +1,6 @@
 <mat-drawer-container class="drawer-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" opened="true">
-    <app-sidemenu [minPrice]="minprice" [maxPrice]="maxprice"></app-sidemenu>
+    <app-sidemenu [minPrice]="minprice" [maxPrice]="maxprice" [outdated]="outdated"></app-sidemenu>
   </mat-drawer>
   <div class="sidenav-content">
     <mat-toolbar color="primary">
@@ -41,7 +41,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-
       <button mat-icon-button class="user">
         <mat-icon>person</mat-icon>
       </button>
@@ -52,7 +51,7 @@
         ">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon [style.color]=" item.outdated ? 'silver' : '#162a99' ">event</mat-icon>
+              <mat-icon [style.color]=" item.outdated ? 'silver' : '#162a99' ">movie</mat-icon>
               <div class="title" [innerHTML]="item.title"></div>
             </mat-panel-title>
           </mat-expansion-panel-header>

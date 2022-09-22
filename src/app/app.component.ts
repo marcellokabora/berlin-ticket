@@ -56,10 +56,11 @@ export class AppComponent {
   ) {
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-      this.minprice = queryParams.minprice ? queryParams.minprice : 0
-      this.maxprice = queryParams.maxprice ? queryParams.maxprice : 1000
-      this.minrate = queryParams.minrate ? queryParams.minrate : 1
-      this.maxrate = queryParams.maxrate ? queryParams.maxrate : 5
+      this.minprice = queryParams.minprice ? Number(queryParams.minprice) : 0
+      this.maxprice = queryParams.maxprice ? Number(queryParams.maxprice) : 1000
+      this.minrate = queryParams.minrate ? Number(queryParams.minrate) : 1
+      this.maxrate = queryParams.maxrate ? Number(queryParams.maxrate) : 5
+      this.outdated = queryParams.outdated === 'true' ? true : false
     })
 
     this.http.get('/assets/data.json').subscribe((data: any) => {
@@ -67,7 +68,7 @@ export class AppComponent {
         if (Math.random() < 0.1) event.price = 0
         event.stars = Math.floor(Math.random() * 5 + 1)
         event.special = Math.random() < 0.3
-        event.outdated = new Date('2022/08/1') >= new Date(event.date2)
+        event.outdated = new Date('2022/10/1') >= new Date(event.date2)
         event.time = '9am - 4pm'
         return event
       })

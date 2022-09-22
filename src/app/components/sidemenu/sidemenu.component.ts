@@ -8,10 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SidemenuComponent {
 
-  outdated: boolean = false
-
   @Input() minPrice = 0
   @Input() maxPrice = 100
+  @Input() minRate = 1
+  @Input() maxRate = 5
+  @Input() outdated = false
 
   constructor(
     private router: Router,
