@@ -1,0 +1,14 @@
+<div class="app-sliders">
+    <div class="title">{{title}}</div>
+    <div class="sliders">
+        <div class="slider">
+            <div class="label">{{minValue}}</div>
+            <mat-slider [min]="min" [max]="max" [step]="step" vertical="true" [(ngModel)]="minValue" (change)="minValueChange.emit(minValue)"></mat-slider>
+        </div>
+        -
+        <div class="slider">
+            <div class="label">{{maxValue}}</div>
+            <mat-slider [min]="min" [max]="max" [step]="step" vertical="true" [(ngModel)]="maxValue" (change)="maxValueChange.emit(maxValue)"></mat-slider>
+        </div>
+    </div>
+</div>

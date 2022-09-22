@@ -4,21 +4,21 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Event {
-  bemerkungen: string
-  bezirk: string
-  mail: string
-  zeit: string
-  bis: string
-  von: string
-  veranstalter: string
+  id: string
+  title: string
   price: number
   stars: number
+  date1: Date
+  date2: Date
   special: boolean
-  bezeichnung: string
-  strasse: string
   outdated: boolean
+  location: string
+  company: string
+  time: string
+  cover: string
 }
 
 @Component({
@@ -33,10 +33,10 @@ export class AppComponent {
 
   outdated: boolean = false
   free: boolean = false
-  minrate: number | undefined = 1
-  maxrate: number | undefined = undefined
-  minprice: number | undefined = undefined
-  maxprice: number | undefined = undefined
+  minrate: number = 1
+  maxrate: number = 5
+  minprice: number = 0
+  maxprice: number = 1000
 
   search: string = ''
   locations: string[] = []
@@ -44,27 +44,41 @@ export class AppComponent {
   locationControl = new FormControl('');
   locationOptions: Observable<string[]> = of()
   sortbyControl = new FormControl('');
-  sortbyOptions: string[] = ['Price', 'Stars', 'DateStart', 'DateEnd'];
+  sortbyOptions: string[] = ['Price', 'Stars', 'date1', 'date2'];
   date1 = ''
   date2 = ''
   sortby = ''
 
+  data: any[] = []
+
   constructor(
     private http: HttpClient,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
 
-    this.http.get("https://www.berlin.de/sen/web/service/maerkte-feste/strassen-volksfeste/index.php/index/all.json?q=").subscribe((data: any) => {
-      this.events = data.index.map((event: Event) => {
-        event.price = Math.floor(Math.random() * 150);
+
+    this.activatedRoute.queryParams.subscribe((queryParams: any) => {
+
+      this.minprice = queryParams.minprice
+      this.maxprice = queryParams.maxprice
+      this.minrate = queryParams.minrate
+      this.maxrate = queryParams.maxrate
+
+    })
+
+    this.http.get('/assets/data.json').subscribe((data: any) => {
+      this.events = data.map((event: Event) => {
         if (Math.random() < 0.1) event.price = 0
         event.stars = Math.floor(Math.random() * 5 + 1)
         event.special = Math.random() < 0.3
-        event.outdated = new Date() >= new Date(event.bis)
+        event.outdated = new Date('2022/08/1') >= new Date(event.date2)
+        event.time = '9am - 4pm'
         return event
       })
 
       const unique = (value: any, index: number, self: any) => self.indexOf(value) === index
-      this.locations = this.events.map(event => event.bezirk).filter(unique).sort()
+      this.locations = this.events.map(event => event.location).filter(unique).sort()
 
       this.locationOptions = this.locationControl.valueChanges.pipe(
         startWith(''),
@@ -77,7 +91,7 @@ export class AppComponent {
       this.location = value ? value : ''
     })
     this.sortbyControl.valueChanges.subscribe(value => {
-      this.sortby = value ? value : 'DateEnd'
+      this.sortby = value ? value : 'date2'
     })
 
   }
@@ -85,7 +99,7 @@ export class AppComponent {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase()
-    return this.locations.filter(option => option.toLowerCase().includes(filterValue))
+    return this.locations.filter(option => option?.toLowerCase().includes(filterValue))
   }
 
 }
@@ -103,35 +117,40 @@ export class pipeRating implements PipeTransform {
 }
 @Pipe({ name: 'pricing' })
 export class pipePricing implements PipeTransform {
-  transform(items: Event[], min: number | undefined, max: number | undefined, free: boolean): Event[] {
+  transform(items: Event[], min: number, max: number): Event[] {
     return items.filter((item: Event) =>
-      free
+      (min && max)
         ?
-        item.price === 0
+        (item.price >= min && item.price <= max)
         :
-        (min || min === 0) && max
+        max
           ?
-          item.price >= min && item.price <= max
+          item.price <= max
           :
-          items)
+          min
+            ?
+            item.price >= min
+            :
+            items
+    )
   }
 }
 @Pipe({ name: 'searching' })
 export class pipeSearching implements PipeTransform {
   transform(items: Event[], search: string): Event[] {
-    return items.filter((item: Event) => item.bezeichnung.toUpperCase().indexOf(search.toUpperCase()) > -1)
+    return items.filter((item: Event) => item.title.toUpperCase().indexOf(search.toUpperCase()) > -1)
   }
 }
-@Pipe({ name: 'special' })
-export class pipeSpecial implements PipeTransform {
-  transform(items: Event[], special: boolean): Event[] {
-    return items.filter((item: Event) => special ? true : item.outdated === false)
+@Pipe({ name: 'outdated' })
+export class pipeOutdated implements PipeTransform {
+  transform(items: Event[], outdated: boolean): Event[] {
+    return items.filter((item: Event) => outdated ? true : item.outdated === false)
   }
 }
 @Pipe({ name: 'location' })
 export class pipeLocation implements PipeTransform {
   transform(items: Event[], location: string): Event[] {
-    return items.filter((item: Event) => location ? item.bezirk === location : item)
+    return items.filter((item: Event) => location ? item.location === location : item)
   }
 }
 @Pipe({ name: 'dates' })
@@ -144,15 +163,15 @@ export class pipeDates implements PipeTransform {
         :
         date1 && date2
           ?
-          new Date(item.von) >= new Date(date1) && new Date(item.bis) <= new Date(date2)
+          new Date(item.date1) >= new Date(date1) && new Date(item.date2) <= new Date(date2)
           :
           date1
             ?
-            new Date(item.von) >= new Date(date1)
+            new Date(item.date1) >= new Date(date1)
             :
             date2
               ?
-              new Date(item.bis) <= new Date(date2)
+              new Date(item.date2) <= new Date(date2)
               :
               null
     )
@@ -168,10 +187,10 @@ export class pipeSortby implements PipeTransform {
       if (sortby === 'Stars') {
         return a.stars - b.stars
       }
-      if (sortby === 'DateStart' && a.von && a.von) {
+      if (sortby === 'date1' && a.von && a.von) {
         return new Date(a.von).getTime() - new Date(b.von).getTime()
       }
-      if (sortby === 'DateEnd' && a.von && a.von) {
+      if (sortby === 'date2' && a.von && a.von) {
         return new Date(a.bis).getTime() - new Date(b.bis).getTime()
       }
       return a

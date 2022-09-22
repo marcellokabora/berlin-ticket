@@ -7,7 +7,7 @@ import {
   pipeRating,
   pipePricing,
   pipeSearching,
-  pipeSpecial,
+  pipeOutdated,
   pipeSortby,
   pipeLocation,
   pipeDates,
@@ -32,7 +32,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
-import { ListeventComponent } from './components/listevent/listevent.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { SlidersComponent } from './components/sliders/sliders.component';
 
 @NgModule({
   declarations: [
@@ -40,13 +41,13 @@ import { ListeventComponent } from './components/listevent/listevent.component';
     pipeRating,
     pipePricing,
     pipeSearching,
-    pipeSpecial,
+    pipeOutdated,
     pipeSortby,
     pipeLocation,
     pipeDates,
     SidemenuComponent,
     MenubarComponent,
-    ListeventComponent,
+    SlidersComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +69,8 @@ import { ListeventComponent } from './components/listevent/listevent.component';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

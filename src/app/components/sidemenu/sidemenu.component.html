@@ -1,69 +1,12 @@
 <div class="sideme">
-    <div class="filter-section" [formGroup]="pricing">
-        <div class="label">Price</div>
-        <mat-checkbox formControlName="price1">
-            <span class="flexcenter">
-                0-10 &nbsp;
-                <mat-icon>paid</mat-icon>
-            </span>
-        </mat-checkbox>
-        <mat-checkbox formControlName="price2">
-            <span class="flexcenter">
-                10-20 &nbsp;
-                <mat-icon>paid</mat-icon>
-            </span>
-        </mat-checkbox>
-        <mat-checkbox formControlName="price3">
-            <span class="flexcenter">
-                20-50 &nbsp;
-                <mat-icon>paid</mat-icon>
-            </span>
-        </mat-checkbox>
-        <mat-checkbox formControlName="price4">
-            <span class="flexcenter">
-                50-100 &nbsp;
-                <mat-icon>paid</mat-icon>
-            </span>
-        </mat-checkbox>
-        <mat-checkbox formControlName="price5">
-            <span class="flexcenter">
-                +100 &nbsp;
-                <mat-icon>paid</mat-icon>
-            </span>
-        </mat-checkbox>
+
+    <div class="topside">
+        <app-sliders title="Price" [min]="0" [max]="100" [step]="10" [minValue]="minPrice" [maxValue]="maxPrice" (minValueChange)="updateQuery({minprice:$event})" (maxValueChange)="updateQuery({maxprice:$event})"></app-sliders>
+
+        <app-sliders title="Rating" [min]="1" [max]="5" [step]="1" [minValue]="1" [maxValue]="5"></app-sliders>
     </div>
-    <div class="filter-section">
-        <mat-slide-toggle class="example-margin" [(ngModel)]="free">Free</mat-slide-toggle>
-    </div>
-    <div class="filter-section" [formGroup]="ratings">
-        <div class="label">Stars</div>
-        <mat-checkbox formControlName="star1">
-            <mat-icon>star</mat-icon>
-        </mat-checkbox>
-        <mat-checkbox formControlName="star2">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-        </mat-checkbox>
-        <mat-checkbox formControlName="star3">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-        </mat-checkbox>
-        <mat-checkbox formControlName="star4">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-        </mat-checkbox>
-        <mat-checkbox formControlName="star5">
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-            <mat-icon>star</mat-icon>
-        </mat-checkbox>
-    </div>
-    <div class="filter-section">
+
+    <div class="botside">
         <mat-slide-toggle class="example-margin" [(ngModel)]="outdated">Outdated</mat-slide-toggle>
     </div>
 </div>

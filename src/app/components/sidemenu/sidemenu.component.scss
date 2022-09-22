@@ -1,0 +1,13 @@
+.sideme{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    .topside {
+        flex: 1;
+            padding: 40px
+    }
+    .botside{
+            padding: 40px;
+    }
+}

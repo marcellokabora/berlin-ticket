@@ -1,76 +1,82 @@
 <mat-drawer-container class="drawer-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" opened="true">
-    <app-sidemenu></app-sidemenu>
+    <app-sidemenu [minPrice]="minprice" [maxPrice]="maxprice"></app-sidemenu>
   </mat-drawer>
   <div class="sidenav-content">
     <mat-toolbar color="primary">
-      <mat-form-field appearance="outline">
-        <mat-label>Event</mat-label>
-        <input matInput type="search" [(ngModel)]="search" autocomplete="off">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      <form>
+      <div class="flex">
         <mat-form-field appearance="outline">
-          <mat-label>Location</mat-label>
-          <input matInput type="search" matInput [formControl]="locationControl" [matAutocomplete]="auto" autocomplete="off">
-          <mat-icon matSuffix>location_on</mat-icon>
+          <mat-label>Event</mat-label>
+          <input matInput type="search" [(ngModel)]="search" autocomplete="off">
+          <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of locationOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </form>
-      <mat-form-field appearance="outline">
-        <mat-label>Start</mat-label>
-        <input matInput [matDatepicker]="picker2" autocomplete="off" (dateChange)="date1=$event.value">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Finish</mat-label>
-        <input matInput [matDatepicker]="picker" autocomplete="off" (dateChange)="date2=$event.value">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Sortby</mat-label>
-        <mat-select [formControl]="sortbyControl">
-          <mat-option *ngFor="let topping of sortbyOptions" [value]="topping">{{topping}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <span class="example-spacer"></span>
-      <button mat-icon-button>
+        <form>
+          <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput type="search" matInput [formControl]="locationControl" [matAutocomplete]="auto" autocomplete="off">
+            <mat-icon matSuffix>location_on</mat-icon>
+          </mat-form-field>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of locationOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </form>
+        <mat-form-field appearance="outline">
+          <mat-label>Start</mat-label>
+          <input matInput [matDatepicker]="picker2" autocomplete="off" (dateChange)="date1=$event.value">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Finish</mat-label>
+          <input matInput [matDatepicker]="picker" autocomplete="off" (dateChange)="date2=$event.value">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Sortby</mat-label>
+          <mat-select [formControl]="sortbyControl">
+            <mat-option *ngFor="let topping of sortbyOptions" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-icon-button class="user">
         <mat-icon>person</mat-icon>
       </button>
     </mat-toolbar>
     <div class="accordion-container">
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let item of events | searching:search | special:outdated | rating:minrate:maxrate | pricing:minprice:maxprice:free | location:location | dates:date1:date2 | sortby:sortby">
+        <mat-expansion-panel *ngFor="let item of events | searching:search | outdated:outdated | rating:minrate:maxrate | pricing:minprice:maxprice | location:location | dates:date1:date2 | sortby:sortby
+        ">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon [style.color]=" item.outdated ? 'silver' : '#162a99' ">event</mat-icon>
-              <div class="title" [innerHTML]="item.bezeichnung"></div>
+              <div class="title" [innerHTML]="item.title"></div>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div mat-line class="infos">
-            <div class="dflex" *ngIf="item.veranstalter">
-              <mat-icon>store</mat-icon>
-              <span class="value">{{item.veranstalter}}</span>
-            </div>
-            <div class="dflex" *ngIf="item.bezirk">
-              <mat-icon>pin_drop</mat-icon>
-              <span>{{item.bezirk}} - {{item.strasse}}</span>
+            <div class="dflex">
+              <div class="dflex" *ngIf="item.company">
+                <mat-icon>store</mat-icon>
+                <span>{{item.company}}</span>
+              </div>
+              <div class="dflex" *ngIf="item.location">
+                <mat-icon>pin_drop</mat-icon>
+                <span>{{item.location}}</span>
+              </div>
             </div>
             <div class="dflex">
-              <span class="dflex" *ngIf="item.von && item.bis">
+              <span class="dflex" *ngIf="item.date1 && item.date2">
                 <mat-icon>event</mat-icon>
-                <span class="value">{{item.von|date}} - {{item.bis|date}}</span>
+                <span class="value">{{item.date1|date}} - {{item.date2|date}}</span>
               </span>
-              <span class="dflex" *ngIf="item.zeit">
+              <span class="dflex" *ngIf="item.time">
                 <mat-icon>schedule</mat-icon>
-                <span class="value">{{item.zeit}}</span>
+                <span class="value">{{item.time}}</span>
               </span>
+              <img [src]="item.cover" alt="">
             </div>
             <div class="line"></div>
             <div class="dflex">

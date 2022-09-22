@@ -2,8 +2,8 @@
   width: 100vw;
   height: 100vh;
   .sidenav {
-    padding: 40px;
-    background-color: #2a3ca3;
+    // padding: 40px;
+    background-color: var(--primary-color);
     color: white;
     .filter-section {
       display: flex;
@@ -33,25 +33,31 @@
       height: auto;
       font-size: 16px;
       padding: 10px 16px !important;
-      .search{
-        background-color: white !important;
-        color: black;
-        margin-left:10px;
-        border-radius: 5px;
-        padding: 10px;
-        border: none;
-        width: 300px;
+      align-items: baseline;
+      .mat-form-field{
+        flex: 1;
       }
-      .mat-form-field {
-        margin-right: 20px;
-        margin-bottom: -15px;
-        .mat-datepicker-toggle-default-icon {
-          color: white;
+      .flex{
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1;
+        .search{
+          background-color: white !important;
+          color: black;
+          margin-left:10px;
+          border-radius: 5px;
+          padding: 10px;
+          border: none;
+          width: 300px;
+        }
+        .mat-form-field {
+          margin-right: 20px;
+          margin-bottom: -15px;
+          .mat-datepicker-toggle-default-icon {
+            color: white;
+          }
         }
       }
-    }
-    .example-spacer {
-      flex: 1 1 auto;
     }
   }
   .accordion-container {
