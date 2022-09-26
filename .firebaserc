@@ -2,7 +2,7 @@
   "targets": {
     "mk-projecto": {
       "hosting": {
-        "avrios-berlin-ticket": [
+        "berlin-ticket": [
           "berlin-ticket"
         ]
       }

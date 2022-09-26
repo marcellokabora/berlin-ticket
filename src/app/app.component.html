@@ -56,26 +56,30 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div mat-line class="infos">
-            <div class="dflex">
-              <div class="dflex" *ngIf="item.company">
-                <mat-icon>store</mat-icon>
-                <span>{{item.company}}</span>
+            <div class="block">
+              <div>
+                <img [src]="item.cover" alt="">
+                <div class="dflex">
+                  <div class="dflex" *ngIf="item.company">
+                    <mat-icon>store</mat-icon>
+                    <span>{{item.company}}</span>
+                  </div>
+                  <div class="dflex" *ngIf="item.location">
+                    <mat-icon>pin_drop</mat-icon>
+                    <span>{{item.location}}</span>
+                  </div>
+                </div>
+                <div class="dflex">
+                  <span class="dflex" *ngIf="item.date1 && item.date2">
+                    <mat-icon>event</mat-icon>
+                    <span class="value">{{item.date1|date}} - {{item.date2|date}}</span>
+                  </span>
+                  <span class="dflex" *ngIf="item.time">
+                    <mat-icon>schedule</mat-icon>
+                    <span class="value">{{item.time}}</span>
+                  </span>
+                </div>
               </div>
-              <div class="dflex" *ngIf="item.location">
-                <mat-icon>pin_drop</mat-icon>
-                <span>{{item.location}}</span>
-              </div>
-            </div>
-            <div class="dflex">
-              <span class="dflex" *ngIf="item.date1 && item.date2">
-                <mat-icon>event</mat-icon>
-                <span class="value">{{item.date1|date}} - {{item.date2|date}}</span>
-              </span>
-              <span class="dflex" *ngIf="item.time">
-                <mat-icon>schedule</mat-icon>
-                <span class="value">{{item.time}}</span>
-              </span>
-              <img [src]="item.cover" alt="">
             </div>
             <div class="line"></div>
             <div class="dflex">

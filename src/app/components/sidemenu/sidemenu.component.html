@@ -1,11 +1,8 @@
 <div class="sideme">
-
     <div class="topside">
         <app-sliders title="Price" [min]="0" [max]="100" [step]="10" [minValue]="minPrice" [maxValue]="maxPrice" (minValueChange)="updateQuery({minprice:$event})" (maxValueChange)="updateQuery({maxprice:$event})"></app-sliders>
-
         <app-sliders title="Rating" [min]="1" [max]="5" [step]="1" [minValue]="minRate" [maxValue]="maxRate" (minValueChange)="updateQuery({minrate:$event})" (maxValueChange)="updateQuery({maxrate:$event})"></app-sliders>
     </div>
-
     <div class="botside">
         <mat-slide-toggle class="example-margin" [checked]="outdated" (change)="updateQuery({outdated:$event.checked})">Outdated</mat-slide-toggle>
     </div>

@@ -1,7 +1,7 @@
 {
   "hosting": {
-    "target": "avrios-berlin-ticket",
-    "public": "dist/avrios-berlin-ticket",
+    "target": "berlin-ticket",
+    "public": "dist/berlin-ticket",
     "ignore": [
       "**/.*"
     ],

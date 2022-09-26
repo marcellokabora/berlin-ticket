@@ -31,7 +31,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
-import { MenubarComponent } from './components/menubar/menubar.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { SlidersComponent } from './components/sliders/sliders.component';
 
@@ -46,7 +45,6 @@ import { SlidersComponent } from './components/sliders/sliders.component';
     pipeLocation,
     pipeDates,
     SidemenuComponent,
-    MenubarComponent,
     SlidersComponent,
   ],
   imports: [

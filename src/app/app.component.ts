@@ -48,6 +48,7 @@ export class AppComponent {
   date2 = ''
   sortby = ''
   data: any[] = []
+  movies = ['aceventura', 'amricanpsycho', 'drstrangermultiverse', 'fightclub', 'glass', 'hancock', 'iamlegend', 'jaws', 'jonwich', 'pulpfiction', 'thgodfather', 'thejoker', 'themask', 'theshining', 'thewolfofwalstreet', 'thorloveandthunder']
 
   constructor(
     private http: HttpClient,
@@ -70,6 +71,7 @@ export class AppComponent {
         event.special = Math.random() < 0.3
         event.outdated = new Date('2022/10/1') >= new Date(event.date2)
         event.time = '9am - 4pm'
+        event.cover = '/assets/movies/' + this.movies[Math.floor(Math.random() * this.movies.length - 1)] + '.jpg'
         return event
       })
 

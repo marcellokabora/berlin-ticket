@@ -72,10 +72,22 @@
         flex: 1;
       }
       .infos {
+        position: relative;
         .dflex {
           display: flex;
           align-items: center;
           margin-bottom: 10px;
+        }
+        .block{
+          display: flex;
+          img{
+            object-fit: contain;
+            object-position: left top;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+          }
+          // justify-content: space-between;
         }
         .mat-icon {
           margin-right: 5px;
