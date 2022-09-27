@@ -1,14 +1,14 @@
 {
   "targets": {
-    "mk-projecto": {
+    "mk-projects-4df06": {
       "hosting": {
         "berlin-ticket": [
-          "berlin-ticket"
+          "berlin-tickets"
         ]
       }
     }
   },
   "projects": {
-    "default": "mk-projecto"
+    "default": "mk-projects-4df06"
   }
 }

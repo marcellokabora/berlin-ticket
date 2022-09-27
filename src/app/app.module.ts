@@ -33,6 +33,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { SlidersComponent } from './components/sliders/sliders.component';
+import { EventComponent } from './components/event/event.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { SlidersComponent } from './components/sliders/sliders.component';
     pipeDates,
     SidemenuComponent,
     SlidersComponent,
+    EventComponent,
   ],
   imports: [
     BrowserModule,

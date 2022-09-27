@@ -1,25 +1,11 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Pipe, PipeTransform } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-
-interface Event {
-  id: string
-  title: string
-  price: number
-  stars: number
-  date1: Date
-  date2: Date
-  special: boolean
-  outdated: boolean
-  location: string
-  company: string
-  time: string
-  cover: string
-}
+import { Component, ViewEncapsulation } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Pipe, PipeTransform } from '@angular/core'
+import { FormControl } from '@angular/forms'
+import { Observable, of } from 'rxjs'
+import { map, startWith } from 'rxjs/operators'
+import { ActivatedRoute, Router } from '@angular/router'
+import { EventType } from './interfaces'
 
 @Component({
   selector: 'app-root',
@@ -29,7 +15,7 @@ interface Event {
 })
 export class AppComponent {
 
-  events: Event[] = []
+  events: EventType[] = []
 
   outdated: boolean = false
   free: boolean = false
@@ -40,15 +26,15 @@ export class AppComponent {
   search: string = ''
   locations: string[] = []
   location = ''
-  locationControl = new FormControl('');
+  locationControl = new FormControl('')
   locationOptions: Observable<string[]> = of()
-  sortbyControl = new FormControl('');
-  sortbyOptions: string[] = ['Price', 'Stars', 'date1', 'date2'];
+  sortbyControl = new FormControl('')
+  sortbyOptions: string[] = ['Price', 'Stars', 'date1', 'date2']
   date1 = ''
   date2 = ''
   sortby = ''
   data: any[] = []
-  movies = ['aceventura', 'amricanpsycho', 'drstrangermultiverse', 'fightclub', 'glass', 'hancock', 'iamlegend', 'jaws', 'jonwich', 'pulpfiction', 'thgodfather', 'thejoker', 'themask', 'theshining', 'thewolfofwalstreet', 'thorloveandthunder']
+  movies = ['aceventura', 'americanpsycho', 'drstrangermultiverse', 'fightclub', 'glass', 'hancock', 'iamlegend', 'jaws', 'jonwich', 'pulpfiction', 'thegodfather', 'thejoker', 'themask', 'theshining', 'thewolfofwalstreet', 'thorloveandthunder']
 
   constructor(
     private http: HttpClient,
@@ -65,18 +51,18 @@ export class AppComponent {
     })
 
     this.http.get('/assets/data.json').subscribe((data: any) => {
-      this.events = data.map((event: Event) => {
-        if (Math.random() < 0.1) event.price = 0
-        event.stars = Math.floor(Math.random() * 5 + 1)
-        event.special = Math.random() < 0.3
-        event.outdated = new Date('2022/10/1') >= new Date(event.date2)
-        event.time = '9am - 4pm'
-        event.cover = '/assets/movies/' + this.movies[Math.floor(Math.random() * this.movies.length - 1)] + '.jpg'
-        return event
+      this.events = data.map((EventType: EventType) => {
+        if (Math.random() < 0.1) EventType.price = 0
+        EventType.stars = Math.floor(Math.random() * 5 + 1)
+        EventType.special = Math.random() < 0.3
+        EventType.outdated = new Date('2022/10/1') >= new Date(EventType.date2)
+        EventType.time = '9am - 4pm'
+        EventType.cover = '/assets/movies/' + this.movies[Math.floor(Math.random() * this.movies.length)] + '.jpg'
+        return EventType
       })
 
       const unique = (value: any, index: number, self: any) => self.indexOf(value) === index
-      this.locations = this.events.map(event => event.location).filter(unique).sort()
+      this.locations = this.events.map(EventType => EventType.location).filter(unique).sort()
 
       this.locationOptions = this.locationControl.valueChanges.pipe(
         startWith(''),
@@ -104,8 +90,8 @@ export class AppComponent {
 
 @Pipe({ name: 'rating' })
 export class pipeRating implements PipeTransform {
-  transform(items: Event[], min: number | undefined, max: number | undefined): Event[] {
-    return items.filter((item: Event) =>
+  transform(items: EventType[], min: number | undefined, max: number | undefined): EventType[] {
+    return items.filter((item: EventType) =>
       min && max
         ?
         item.stars >= min && item.stars <= max
@@ -115,8 +101,8 @@ export class pipeRating implements PipeTransform {
 }
 @Pipe({ name: 'pricing' })
 export class pipePricing implements PipeTransform {
-  transform(items: Event[], min: number, max: number): Event[] {
-    return items.filter((item: Event) =>
+  transform(items: EventType[], min: number, max: number): EventType[] {
+    return items.filter((item: EventType) =>
       (min && max)
         ?
         (item.price >= min && item.price <= max)
@@ -135,26 +121,26 @@ export class pipePricing implements PipeTransform {
 }
 @Pipe({ name: 'searching' })
 export class pipeSearching implements PipeTransform {
-  transform(items: Event[], search: string): Event[] {
-    return items.filter((item: Event) => item.title.toUpperCase().indexOf(search.toUpperCase()) > -1)
+  transform(items: EventType[], search: string): EventType[] {
+    return items.filter((item: EventType) => item.title.toUpperCase().indexOf(search.toUpperCase()) > -1)
   }
 }
 @Pipe({ name: 'outdated' })
 export class pipeOutdated implements PipeTransform {
-  transform(items: Event[], outdated: boolean): Event[] {
-    return items.filter((item: Event) => outdated ? true : item.outdated === false)
+  transform(items: EventType[], outdated: boolean): EventType[] {
+    return items.filter((item: EventType) => outdated ? true : item.outdated === false)
   }
 }
 @Pipe({ name: 'location' })
 export class pipeLocation implements PipeTransform {
-  transform(items: Event[], location: string): Event[] {
-    return items.filter((item: Event) => location ? item.location === location : item)
+  transform(items: EventType[], location: string): EventType[] {
+    return items.filter((item: EventType) => location ? item.location === location : item)
   }
 }
 @Pipe({ name: 'dates' })
 export class pipeDates implements PipeTransform {
-  transform(items: Event[], date1: string, date2: string): Event[] {
-    return items.filter((item: Event) =>
+  transform(items: EventType[], date1: string, date2: string): EventType[] {
+    return items.filter((item: EventType) =>
       !date1 && !date2
         ?
         item
@@ -177,7 +163,7 @@ export class pipeDates implements PipeTransform {
 }
 @Pipe({ name: 'sortby' })
 export class pipeSortby implements PipeTransform {
-  transform(items: Event[], sortby: string): Event[] {
+  transform(items: EventType[], sortby: string): EventType[] {
     return items.sort((a: any, b: any) => {
       if (sortby === 'Price') {
         return a.price - b.price
