@@ -55,9 +55,9 @@
               <div class="title" [innerHTML]="item.title"></div>
             </mat-panel-title>
           </mat-expansion-panel-header>
-
-          <app-event [item]="item"></app-event>
-
+          <div mat-line>
+            <app-event [item]="item"></app-event>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

@@ -1,0 +1,40 @@
+.app-event {
+        position: relative;
+        .infos {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between; 
+        }
+        .dflex {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .block{
+          display: flex;
+          img{
+            object-fit: contain;
+            object-position: left top;
+            height: 200px;
+            margin-right: 20px;
+          }
+        }
+        .mat-icon {
+          margin-right: 5px;
+        }
+        .value {
+          font-weight: normal;
+          margin-right: 10px;
+        }
+        .line {
+          border-top: 1px solid #dbdbdb;
+          margin: 15px 0;
+        }
+        .label {
+              font-weight: bold;
+          margin-right: 10px;
+        }
+        .price {
+          font-weight: bold;
+        }
+      }

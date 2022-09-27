@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './sidemenu.component.html',
   styleUrls: ['./sidemenu.component.scss']
 })
-export class SidemenuComponent {
+export class AsideComponent {
 
   @Input() minPrice = 0
   @Input() maxPrice = 100

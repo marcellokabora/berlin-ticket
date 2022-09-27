@@ -30,10 +30,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
+import { AsideComponent } from './lib/aside/sidemenu.component';
 import { MatSliderModule } from '@angular/material/slider';
-import { SlidersComponent } from './components/sliders/sliders.component';
-import { EventComponent } from './components/event/event.component';
+import { SlidersComponent } from './lib/sliders/sliders.component';
+import { EventComponent } from './lib/event/event.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { EventComponent } from './components/event/event.component';
     pipeSortby,
     pipeLocation,
     pipeDates,
-    SidemenuComponent,
+    AsideComponent,
     SlidersComponent,
     EventComponent,
   ],
